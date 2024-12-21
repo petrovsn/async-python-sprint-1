@@ -201,8 +201,9 @@ def analyze_json(data):
     result[OUTPUT_DAYS_KEY] = days
     return result
 
-
+import time
 if __name__ == "__main__":
+    #time.sleep(10)
     args = parse_args()
     input_path = args.input
     output_path = args.output
@@ -213,5 +214,4 @@ if __name__ == "__main__":
 
     data = load_data(input_path)
     data = analyze_json(data)
-
     dump_data(data, output_path)

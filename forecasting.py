@@ -1,7 +1,7 @@
 # import logging
 # import threading
 # import subprocess
-# import multiprocessing
+from multiprocessing import freeze_support
 
 
 from external.client import YandexWeatherAPI
@@ -22,8 +22,14 @@ def forecast_weather():
     # url_with_data = get_url_by_city_name(city_name)
     # resp = YandexWeatherAPI.get_forecasting(url_with_data)
     # print(resp)
-    pass
+    cities_list = list(CITIES.keys())
+    weather_data = DataFetchingTask.run(cities_list)
+    proceeded_weather_data = DataCalculationTask.run(weather_data)
+    final_table = DataAggregationTask.run(proceeded_weather_data)
+    best_cities = DataAnalyzingTask.run(final_table)
+    return best_cities
 
 
 if __name__ == "__main__":
-    forecast_weather()
+    result = forecast_weather()
+    print(result)
